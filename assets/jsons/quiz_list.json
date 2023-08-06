@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "id": "1",
+            "icon": "java",
+            "name": "Java"
+        },
+        {
+            "id": "2",
+            "icon": "flutter",
+            "name": "Flutter"
+        },
+        {
+            "id": "3",
+            "icon": "python",
+            "name": "Python"
+        },
+        {
+            "id": "4",
+            "icon": "spring",
+            "name": "Spring"
+        }
+    ]
+}

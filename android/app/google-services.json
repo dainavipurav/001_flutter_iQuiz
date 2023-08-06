@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "186403242484",
+    "project_id": "iquiz-a52d3",
+    "storage_bucket": "iquiz-a52d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186403242484:android:152e2796c54c1ef052f9a1",
+        "android_client_info": {
+          "package_name": "com.learning.iquiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186403242484-q4dip9u0d6lhtuoa5gcfimv1gnfc1too.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3UDrDHY_Rdasdr0fZ1EG8hJmZP6Qu8DM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186403242484-b9bduk61r97u3ojb7ubtbpsb1kqgnkrm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
