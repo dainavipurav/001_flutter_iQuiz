@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:i_quiz/components/i_quiz_appbar.dart';
 import 'package:i_quiz/components/radio_list/radio_list.dart';
@@ -11,10 +10,9 @@ import 'package:i_quiz/utils/enums.dart';
 import 'package:logging/logging.dart';
 
 class HomeScreen extends StatefulWidget {
-  final User loggedInUserDetails;
+  final User? loggedInUserDetails;
 
-  const HomeScreen({Key? key, required this.loggedInUserDetails})
-      : super(key: key);
+  const HomeScreen({Key? key, this.loggedInUserDetails}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -29,7 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    xController.initializeQuizList();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      xController.initializeQuizList();
+      await xController.fetchData();
+    });
   }
 
   @override
@@ -38,8 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: IQuizAppBar.iQuizAppBar(
           title: "Home",
-          leadingWidget: IQuizAppBar.appBarLeading(AppBarLeadingType.PROFILE,
-              widget.loggedInUserDetails.photoURL ?? ""),
+          leadingWidget: widget.loggedInUserDetails != null
+              ? IQuizAppBar.appBarLeading(AppBarLeadingType.PROFILE,
+                  widget.loggedInUserDetails!.photoURL ?? "")
+              : null,
           actions: [
             IconButton(
                 onPressed: () {
@@ -58,10 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 shrinkWrap: true,
                 children: [
                   SizedBox(height: 20),
-                  Text(
-                    "Welcome ${widget.loggedInUserDetails.displayName},",
-                    style: TextStyle(fontSize: 24),
-                  ),
+                  if (widget.loggedInUserDetails != null)
+                    Text(
+                      "Welcome ${widget.loggedInUserDetails!.displayName},",
+                      style: TextStyle(fontSize: 24),
+                    ),
                   SizedBox(height: 20),
                   Text(
                     "Select below quiz",
@@ -84,7 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
     if (xController.quizListResponse.value.data != null &&
         xController.quizListResponse.value.data!.length != 0) {
       return QuizRadioList(
-          quizListResponseDto: xController.quizListResponse.value);
+        quizListResponseDto: xController.quizListResponse.value,
+      );
     } else {
       return Text("No quiz available");
     }

@@ -9,6 +9,7 @@ import 'package:i_quiz/routes.dart';
 
 import 'theme/theme.dart';
 import 'utils/constant.dart';
+import 'package:logging/logging.dart';
 
 void main() async {
   AppLogging.enableLogger();
@@ -19,6 +20,7 @@ void main() async {
       appId: Constant.androidAppId,
       messagingSenderId: Constant.projectNumber,
       projectId: Constant.projectId,
+      databaseURL: "https://iquiz-a52d3.firebaseio.com",
     ),
   );
   runApp(IQuizApp());
@@ -31,30 +33,35 @@ class IQuizApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final log = Logger("Home");
+
     return GetMaterialApp(
       theme: AppTheme.light,
       navigatorKey: navigatorKey,
       routes: IQuizRoutes.get(context),
-      home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          }
+      // home: StreamBuilder<User?>(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.hasError) {
+      //       return Text(snapshot.error.toString());
+      //     }
 
-          if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.data == null) {
-              return SignInScreen();
-            } else {
-              return HomeScreen(
-                loggedInUserDetails: snapshot.data!,
-              );
-            }
-          }
+      //     if (snapshot.connectionState == ConnectionState.active) {
+      //       if (snapshot.data == null) {
+      //         return SignInScreen();
+      //       } else {
+      //         log.fine("Success Response : ${snapshot.data}");
+      //         return HomeScreen(
+      //           loggedInUserDetails: snapshot.data!,
+      //         );
+      //       }
+      //     }
 
-          return CircularProgressIndicator();
-        },
-      ),
+      //     return CircularProgressIndicator();
+      //   },
+      // ),
+
+      home: HomeScreen(),
     );
   }
 }

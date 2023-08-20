@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "186403242484-uev2afvvjsmlkprqav2hru4g6b7saq77.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.learning.iquiz",
+            "certificate_hash": "9f2ede044bbb6c5bb1b774538d93971575cbdad2"
+          }
+        },
+        {
           "client_id": "186403242484-q4dip9u0d6lhtuoa5gcfimv1gnfc1too.apps.googleusercontent.com",
           "client_type": 3
         }
