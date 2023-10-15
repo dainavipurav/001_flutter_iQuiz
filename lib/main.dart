@@ -15,6 +15,7 @@ void main() async {
   AppLogging.enableLogger();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+    name: "iQuiz",
     options: FirebaseOptions(
       apiKey: Constant.projectApiKey,
       appId: Constant.androidAppId,
@@ -39,29 +40,29 @@ class IQuizApp extends StatelessWidget {
       theme: AppTheme.light,
       navigatorKey: navigatorKey,
       routes: IQuizRoutes.get(context),
-      // home: StreamBuilder<User?>(
-      //   stream: FirebaseAuth.instance.authStateChanges(),
-      //   builder: (context, snapshot) {
-      //     if (snapshot.hasError) {
-      //       return Text(snapshot.error.toString());
-      //     }
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
 
-      //     if (snapshot.connectionState == ConnectionState.active) {
-      //       if (snapshot.data == null) {
-      //         return SignInScreen();
-      //       } else {
-      //         log.fine("Success Response : ${snapshot.data}");
-      //         return HomeScreen(
-      //           loggedInUserDetails: snapshot.data!,
-      //         );
-      //       }
-      //     }
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.data == null) {
+              return SignInScreen();
+            } else {
+              log.fine("Success Response : ${snapshot.data}");
+              return HomeScreen(
+                loggedInUserDetails: snapshot.data!,
+              );
+            }
+          }
 
-      //     return CircularProgressIndicator();
-      //   },
-      // ),
+          return CircularProgressIndicator();
+        },
+      ),
 
-      home: HomeScreen(),
+      // home: HomeScreen(),
     );
   }
 }
