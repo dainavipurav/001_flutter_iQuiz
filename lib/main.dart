@@ -12,6 +12,7 @@ import 'utils/constant.dart';
 import 'package:logging/logging.dart';
 
 void main() async {
+  //Test comment
   AppLogging.enableLogger();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
